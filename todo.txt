@@ -1,0 +1,5 @@
+1 - dans le fichier /Projects/env/local/lib/python2.7/site-packages/registration/models.py:
+	changer la ligne User = get_user_model()
+	en
+	User = settings.AUTH_USER_MODEL
+

@@ -1,10 +1,16 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.auth.views import login
+from network.form import UserRegistrationForm, UserLoginForm
+from network.regbackend import ProfileBackend
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'socialapp.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+	url(r'', include('network.urls')),
+	url(r'^accounts/register/$',
+			ProfileBackend.as_view(form_class = UserRegistrationForm), name='registration_register'),
+	url(r'^accounts/login',
+			'django.contrib.auth.views.login',{'template_name':'registration/login.html', 'authentication_form':UserLoginForm}),
+	url(r'^accounts/', include('registration.backends.default.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )

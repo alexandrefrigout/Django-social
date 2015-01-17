@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="col-md-4"></div>
+<div class="col-md-4">
+	<div class="col-sm-offset-2 col-sm-10 page-header">
+		<h1>Inscrivez vous</h1>
+	</div>
+        <form method="post" action="." class="form-horizontal">
+                {% csrf_token %}
+					{% if form.non_field_errors %}
+						<div class="form-group">
+							{% for error in form.non_field_errors %}
+							
+							<div class="col-sm-12 alert alert-danger">
+									{{ error }}
+							</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+				<div class="form-group">
+					<label for="id_username" class="col-sm-4 control-label">Pseudo</label>
+					<div class="col-sm-8">
+						{{ form.username }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_email" class="col-sm-4 control-label">Email</label>
+					<div class="col-sm-8">
+						{{ form.email }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_password1" class="col-sm-4 control-label">Mot de passe</label>
+					<div class="col-sm-8">
+						{{ form.password1 }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_password2" class="col-sm-4 control-label">Mot de passe</label>
+					<div class="col-sm-8">
+						{{ form.password2 }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_gender" class="col-sm-4 control-label">Genre</label>
+					<div class="col-sm-8">
+						{{ form.gender }}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-4">
+                		<input type="submit" class="btn btn-primary btn-block" value="Valider" />
+					</div>
+				</div>
+        </form>
+</div>
+<div class="col-md-4"></div>
+{% endblock %}
+
