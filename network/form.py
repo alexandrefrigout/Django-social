@@ -29,6 +29,7 @@ class UserRegistrationForm(RegistrationForm):
 	
 	gender = forms.ChoiceField(label='Genre', widget=forms.Select(attrs={'class':'form-control'}), choices=GENDER_CHOICES)
 
+	exclude = ['profilepicture', 'birthdate', 'country', 'city']
 
 	def clean(self):
 		print self.cleaned_data
@@ -56,11 +57,12 @@ class UserRegistrationForm(RegistrationForm):
 
 		return user
 
+
+
 class UserLoginForm(AuthenticationForm):
 	username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
 	password = forms.CharField(max_length=75, widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
-#class UserProfileForm(forms.ModelForm):
-#	class Meta:
-#		model = UserProfile
-#		fields = ('gender')
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile

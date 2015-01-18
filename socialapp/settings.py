@@ -85,6 +85,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'network/medias')]
+MEDIA_URL = '/medias/'
+
+
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'network/templates')]
 
 EMAIL_HOST = 'smtp.gmail.com'
