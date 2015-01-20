@@ -15,7 +15,7 @@ class Profile(models.Model):
 	user = models.ForeignKey(User, unique=True, limit_choices_to={'is_staff': False})
 	created = models.DateTimeField(auto_now_add=True)
 	gender = models.CharField(max_length=15, choices=GENDER_CHOICES)
-	profilepicture = models.FileField(upload_to='pictures/%Y/%m/%d')
+	profilepicture = models.FileField(upload_to='pictures/%Y/%m/%d', null=True, blank=True)
 	birthdate = models.DateField(null=True, blank=True)
 	country = models.CharField(max_length=100)
 	city = models.CharField(max_length=100)

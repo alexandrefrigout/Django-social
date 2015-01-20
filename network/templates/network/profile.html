@@ -14,7 +14,9 @@
 </nav>
 
 <div class="col-sm-3">
-	<img src="/static/img/anonymous.jpeg" class="img-responsive img-rounded"></img>
+	{% if profile.profilepicture.name %}
+		<img src="{{ profile.profilepicture.url }}" alt="{{ profile.profilepicture.name }}" class="img-responsive img-rounded"></img>
+	{% endif %}
 </div>
 
 <div class="col-sm-4">
@@ -22,4 +24,3 @@
 
 
 {% endblock %}
-glyphicon glyphicon-home
