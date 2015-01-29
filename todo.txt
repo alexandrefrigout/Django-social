@@ -3,3 +3,7 @@
 	en
 	User = settings.AUTH_USER_MODEL
 
+
+SQLite3:
+	SELECT sql FROM sqlite_master
+	WHERE tbl_name = 'table_name' AND type = 'table'
