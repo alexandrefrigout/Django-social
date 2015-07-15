@@ -7,3 +7,5 @@
 SQLite3:
 	SELECT sql FROM sqlite_master
 	WHERE tbl_name = 'table_name' AND type = 'table'
+
+	mettre l'id du stie dans django_site a la meme valeur que SITE_ID de settings.py

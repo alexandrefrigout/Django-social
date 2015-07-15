@@ -6,6 +6,7 @@ from django.contrib.auth.views import login
 from network.form import UserRegistrationForm, UserLoginForm
 from network.regbackend import ProfileBackend
 from network import views
+admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'', include('network.urls')),
