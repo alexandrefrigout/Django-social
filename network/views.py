@@ -16,29 +16,30 @@ def profile(request):
 
 
 def editProfile(request, userid):
-	user = User.objects.get(id=userid)
-	initialprofile = Profile.objects.get(user_id=user.id)
+        if request.user.is_authenticated() and User.objects.get(username=str(request.user)) == User.objects.get(id=userid):
+                user = User.objects.get(id=userid)
+                initialprofile = Profile.objects.get(user_id=user.id)
 
-	if request.method == 'POST':
-		print "POSTED" 
-		print request.FILES
-		userform = UserForm(request.POST, instance=user)
-		form = ProfileForm(request.POST, request.FILES, instance=initialprofile)
-		 
-		if form.is_valid() and userform.is_valid():
-			userform.save(commit=True)
-			form.save(commit=True)
-			return HttpResponseRedirect('/accounts/profile/'+str(user.id))
-		else:
-			print userform.errors
-			print form.errors
-			return HttpResponse({'Bad' : 'isBad'})
-			
+                if request.method == 'POST':
+                        print "POSTED"
+                        print request.FILES
+                        userform = UserForm(request.POST, instance=user)
+                        form = ProfileForm(request.POST, request.FILES, instance=initialprofile)
 
-	else:
-		print "NOT POSTED"
-		userform = UserForm(instance=user)
-		form = ProfileForm(instance=initialprofile)
-		
-		return render(request, 'network/editprofile.html', {'profile' : form, 'user' : userform, 'photoprofile' : initialprofile})
-		
+                        if form.is_valid() and userform.is_valid():
+                                userform.save(commit=True)
+                                form.save(commit=True)
+                                return HttpResponseRedirect('/accounts/profile/'+str(user.id))
+                        else:
+                                print userform.errors
+                                print form.errors
+                                return HttpResponse({'Bad' : 'isBad'})
+
+
+                else:
+                        print "NOT POSTED"
+                        userform = UserForm(instance=user)
+                        form = ProfileForm(instance=initialprofile)
+
+                        return render(request, 'network/editprofile.html', {'profile' : form, 'user' : userform, 'photoprofile' : initialprofile})
+
