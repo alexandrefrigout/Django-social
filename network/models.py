@@ -20,12 +20,12 @@ class Profile(models.Model):
 	country = models.CharField(max_length=100)
 	city = models.CharField(max_length=100)
 
+	def __unicode__(self):
+		return self.user.username
+
 
 	def save(self, *args, **kwargs):
 		super(Profile, self).save(*args, **kwargs)
-
-	      def save(self, *args, **kwargs):
-                super(Profile, self).save(*args, **kwargs)
 
         def follow(self, user):
                 self.user.relationships.add(user)

@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, StreamingHttpResponse
 from network.models import Profile
 from network.form import ProfileForm, UserForm
+from friendship.models import Friend, Follow
 
 
 @login_required
@@ -11,10 +12,10 @@ def profile(request):
 	if request.user.is_authenticated():
 		user = User.objects.get(username=str(request.user))
 		profile = Profile.objects.get(user_id = user.id)
-		#return HttpResponse('%s est connecte'% str(user))
+		#return StreamingHttpResponse('%s est connecte'% str(user))
 		return render(request, 'network/profile.html', {'profile' : profile})
 
-
+@login_required
 def editProfile(request, userid):
         if request.user.is_authenticated() and User.objects.get(username=str(request.user)) == User.objects.get(id=userid):
                 user = User.objects.get(id=userid)
@@ -33,7 +34,8 @@ def editProfile(request, userid):
                         else:
                                 print userform.errors
                                 print form.errors
-                                return HttpResponse({'Bad' : 'isBad'})
+                        	return render(request, 'network/editprofile.html', {'profile' : form, 'user' : userform, 'photoprofile' : initialprofile})
+                                #return StreamingHttpResponse({'Bad' : 'isBad'})
 
 
                 else:
@@ -43,3 +45,34 @@ def editProfile(request, userid):
 
                         return render(request, 'network/editprofile.html', {'profile' : form, 'user' : userform, 'photoprofile' : initialprofile})
 
+	else:
+		return HttpResponseRedirect('/accounts/login')
+
+@login_required
+def searchuser(request):
+	#try:
+	chaine = request.GET['chaine']
+	UserResult = User.objects.filter(username__icontains=chaine)
+	ProfileResult = []
+	for us in UserResult:
+		ProfileResult.append(Profile.objects.get(user=us))
+		print dir(Profile.objects.get(user=us).profilepicture)
+		print Profile.objects.get(user=us).profilepicture.name
+	print ProfileResult
+	return render(request, 'network/searchresult.html', {'profile' : ProfileResult, 'request' : request})
+	#except:
+	#	return StreamingHttpResponse({'Bad' : 'isBad'})
+
+#@login_required
+#def FollowUser(request, user):
+#	try:
+#		TargetUser = User.objects.get(id=user)
+#		print TargetUser.pk, request.user.pk
+#		if TargetUser.pk is not request.user.pk:
+#			request.user.relationships.add(TargetUser)
+#			return StreamingHttpResponse({'Ok' : 'isOK'})
+#		else:
+#			return StreamingHttpResponse({'Bad' : 'isBad'})
+#	except:
+#		return StreamingHttpResponse({'Bad' : 'isBad'})
+#	

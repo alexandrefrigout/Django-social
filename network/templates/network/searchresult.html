@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load relationship_tags %}
+
+{% block body %}
+
+{% include 'header.html' %}
+
+<!-- penser a remplacer tout ca par un tableau bootstrap -->
+	{% if profile %}
+	{% for p in profile %}
+		<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-2">
+			{% if p.profilepicture.name %}
+				<img src="{{ p.profilepicture.url }}" alt="{{ p.profilepicture.name }}" class="img-responsive img-rounded" id="id_photo"></img>
+			{% else %}
+				<img src="{{ STATIC_URL }}img/anonymous.jpeg" class="img-responsive img-rounded" id="id_photo"></img>
+			{% endif %}
+		</div>
+		<div class="col-md-6">
+			<p class="lead text-center">{{ p.user }}</p>
+		</div>
+		
+		<div class="col-md-2">
+			{% if_relationship request.user p.user "following" %}
+				{% if_accepted request.user p.user "following" %}
+					<a class="btn btn-alert" href="{{ p.user|remove_relationship_url:"following" }}" role="button"><span class="glyphicon glyphicon-remove"></span></a>
+				{% else %}
+					<a class="btn btn-default disabled" href="" role="button"><span class="glyphicon glyphicon-time"></span></a>
+				{% endif_accepted %}
+			{% else %}
+					<a class="btn btn-default" href="{{ p.user|add_relationship_url:"following" }}" role="button"><span class="glyphicon glyphicon-plus"></span></a>			
+			{% endif_relationship %}
+		</div>
+		</div>
+	{% endfor %}
+	{% endif %}
+
+{% endblock %}
