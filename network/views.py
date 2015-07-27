@@ -55,7 +55,7 @@ def searchuser(request):
 	UserResult = User.objects.filter(username__icontains=chaine)
 	ProfileResult = []
 	for us in UserResult:
-		if us.is_active:
+		if not us.is_superuser and us.is_active:
 			ProfileResult.append(Profile.objects.get(user=us))
 			print dir(Profile.objects.get(user=us).profilepicture)
 			print Profile.objects.get(user=us).profilepicture.name
