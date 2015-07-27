@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'registration',
 	'network',
 	'relationships',
-	'friendship',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 1

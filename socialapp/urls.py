@@ -20,7 +20,6 @@ urlpatterns = patterns('',
 	url(r'^searchuser/', views.searchuser),
 #	url(r'follow/(\w+)$', views.FollowUser),
 	url(r'relationships/', include('relationships.urls')),
-	url(r'^friendship/', include('friendship.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

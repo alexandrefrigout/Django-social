@@ -27,12 +27,12 @@ class Profile(models.Model):
 	def save(self, *args, **kwargs):
 		super(Profile, self).save(*args, **kwargs)
 
-        def follow(self, user):
-                self.user.relationships.add(user)
+    #def follow(self, user):
+	#	self.user.relationships.add(user)
 
-        def unfollow(self, user):
-                self.user.relationships.remove(user)
+    #def unfollow(self, user):
+	#	self.user.relationships.remove(user)
 
-        def makeFriend(self, user):
-                self.user.relationships.add(user, symmetrical=True)
+    #def makeFriend(self, user):
+	#	self.user.relationships.add(user, symmetrical=True)
 

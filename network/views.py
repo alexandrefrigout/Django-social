@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, StreamingHttpResponse
 from network.models import Profile
 from network.form import ProfileForm, UserForm
-from friendship.models import Friend, Follow
 
 
 @login_required
