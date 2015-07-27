@@ -55,9 +55,10 @@ def searchuser(request):
 	UserResult = User.objects.filter(username__icontains=chaine)
 	ProfileResult = []
 	for us in UserResult:
-		ProfileResult.append(Profile.objects.get(user=us))
-		print dir(Profile.objects.get(user=us).profilepicture)
-		print Profile.objects.get(user=us).profilepicture.name
+		if us.is_active:
+			ProfileResult.append(Profile.objects.get(user=us))
+			print dir(Profile.objects.get(user=us).profilepicture)
+			print Profile.objects.get(user=us).profilepicture.name
 	print ProfileResult
 	return render(request, 'network/searchresult.html', {'profile' : ProfileResult, 'request' : request})
 	#except:
