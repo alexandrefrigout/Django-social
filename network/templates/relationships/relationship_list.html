@@ -1,7 +1,21 @@
 {% extends "base.html" %}
+{% load relationship_tags %}
+{% load network_extras %}
 
 {% block content %}
+
+{% include 'header.html' %}
+
+<div>
+	Hello
+</div>
+
   {% for user in relationship_list %}
-    <p>{{ user.username }}</p>
+	<div class="row">
+		<div class="col-md-2">{{ user.username }}</div>
+		<div class="col-md-6"></div>
+		<div class="col-md-2"><a class="btn" href="{{ user|accept_request_url:"following"}}" role="button">accept</a></div>
+		<div class="col-md-2"><a class="btn" href="{{ user|decline_request_url:"following"}}" role="button">decline</a></div>
+	</div>
   {% endfor %}
 {% endblock %}

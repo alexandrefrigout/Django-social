@@ -25,12 +25,12 @@
 		<div class="col-md-2">
 			{% if_relationship request.user p.user "following" %}
 				{% if_accepted request.user p.user "following" %}
-					<a class="btn btn-alert" href="{{ p.user|remove_relationship_url:"following" }}" role="button"><span class="glyphicon glyphicon-remove"></span></a>
+					<a class="btn btn-alert" href="{{ p.user|remove_relationship_url:"following" }}" role="button"><span class="glyphicon glyphicon-remove"></span>remove</a>
 				{% else %}
-					<a class="btn btn-default disabled" href="" role="button"><span class="glyphicon glyphicon-time"></span></a>
+					<a class="btn btn-default disabled" href="" role="button"><span class="glyphicon glyphicon-time"></span>en attente</a>
 				{% endif_accepted %}
 			{% else %}
-					<a class="btn btn-default" href="{{ p.user|add_relationship_url:"following" }}" role="button"><span class="glyphicon glyphicon-plus"></span></a>			
+					<a class="btn btn-default" href="{{ p.user|add_relationship_url:"following" }}" role="button"><span class="glyphicon glyphicon-plus"></span>ajouter</a>			
 			{% endif_relationship %}
 		</div>
 		</div>
