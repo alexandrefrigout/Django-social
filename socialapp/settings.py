@@ -16,6 +16,8 @@ LOGIN_REDIRECT_URL='/accounts/profile/'
 
 SITE_ID = 1
 
+ALLOWED_HOSTS = [ 'http://lxvgvapoctst01p:8000', ]
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -43,12 +45,35 @@ INSTALLED_APPS = (
     'registration',
 	'network',
 	'relationships',
+	'rest_framework',
+	'corsheaders',
 )
+
+REST_FRAMEWORK = { 
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAdminUser',
+        ),  
+    'PAGE_SIZE': 10, 
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.TemplateHTMLRenderer',
+        ),  
+         'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )   
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ACCOUNT_ACTIVATION_DAYS = 1
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
