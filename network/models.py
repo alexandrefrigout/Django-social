@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from socialapp.settings import ALLOWED_HOSTS, STATIC_URL
 import datetime
 
 class Profile(models.Model):
@@ -22,6 +23,16 @@ class Profile(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+	def abs_url(self):
+                dom = ALLOWED_HOSTS[0]
+                return dom + reverse('viewprofile', args=[self.id])
+
+        def static_url(self):
+                return ALLOWED_HOSTS[0]+STATIC_URL
+
+        def user_name(self):
+                return self.user.username
 
 
 	def save(self, *args, **kwargs):
